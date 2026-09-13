@@ -1,0 +1,10 @@
+{
+  "name": "济州岛旅行 2026",
+  "short_name": "济州旅行",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f5f8f7",
+  "theme_color": "#eef7f7",
+  "lang": "zh-CN",
+  "description": "9月24日至27日济州岛手机旅行手册"
+}

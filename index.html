@@ -1,43 +1,58 @@
 <!doctype html>
-<html lang="zh-CN"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#eef7f7"><title>济州岛 9.24–9.27 · 详细交互旅行手册</title>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#eef7f7">
+<meta name="description" content="济州岛 2026-09-24 至 09-27 手机旅行手册：行程、地图、交通、餐厅、购物、入境准备与离线缓存。">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="济州岛旅行">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/icon.svg">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css">
-<style>
-:root{--ink:#17343e;--muted:#667b82;--line:#dfe8e6;--bg:#f5f8f7;--card:#fff;--accent:#e96b4b}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#f5f8f7;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;-webkit-tap-highlight-color:transparent}
-a{color:inherit}.app{max-width:1160px;margin:auto;padding:12px 12px calc(92px + env(safe-area-inset-bottom))}
-.hero{background:linear-gradient(130deg,#dbf2f5,#fff5dd);border-radius:0 0 26px 26px;padding:calc(18px + env(safe-area-inset-top)) 18px 20px;margin:-12px -12px 12px;overflow:hidden}
-.kicker{font-size:12px;letter-spacing:.14em;font-weight:900;color:#587a83}.hero h1{font-size:34px;line-height:1.06;letter-spacing:-.04em;margin:8px 0}.hero p{font-size:14px;line-height:1.6;color:#526b72;max-width:760px}.chips{display:flex;gap:7px;overflow:auto;padding-bottom:2px}.chip{flex:0 0 auto;background:#ffffffc9;border:1px solid #fff;padding:7px 10px;border-radius:999px;font-size:12px;font-weight:800}
-.section{display:none}.section.active{display:block}.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:14px;margin-bottom:11px}.card h2,.card h3{margin-top:0}.muted{color:var(--muted);line-height:1.6}
-.daystrip{display:flex;gap:8px;overflow:auto;padding:2px 0 10px;scrollbar-width:none}.daystrip::-webkit-scrollbar{display:none}.daybtn{flex:0 0 auto;min-height:44px;border:1px solid var(--line);background:#fff;border-radius:999px;padding:9px 13px;font-weight:850;color:#35545d}.daybtn.active{background:var(--accent);border-color:var(--accent);color:#fff}
-.map{height:44vh;min-height:350px;max-height:500px;border-radius:15px;overflow:hidden;background:#dcedeb}.mapfallback{height:100%;display:grid;place-items:center;padding:20px;text-align:center;background:linear-gradient(135deg,#e7f4f4,#fff7e8)}
-.timeline{display:grid;gap:9px}.trow{display:grid;grid-template-columns:82px 1fr;gap:8px}.time{font-size:13px;font-weight:900}.event{border-left:3px solid var(--accent);padding-left:9px;font-size:14px;line-height:1.55}.event b{display:block;margin-bottom:2px}.tag{display:inline-block;font-size:11px;padding:3px 7px;border-radius:999px;background:#f0f5f4;color:#5b7076;margin-top:5px}
-.meals{display:grid;gap:8px}.meal{background:#f7faf9;border-radius:13px;padding:11px;font-size:13px;line-height:1.55}.meal b{display:block;margin-bottom:3px}
-.tip{background:#f3f8f7;border-radius:13px;padding:11px;font-size:13px;line-height:1.55;color:#536b72}.weather{background:#fff7e7;border-radius:13px;padding:11px;font-size:13px;line-height:1.55;color:#6d604a}
-.rest{border:1px solid var(--line);border-radius:13px;padding:10px;margin:8px 0}.rest b{display:block}.rest small{display:block;color:var(--muted);margin-top:3px;line-height:1.45}
-.actions,.stop-actions{display:grid;grid-template-columns:repeat(2,1fr);gap:7px}.btn,.stop-actions a{min-height:44px;display:flex;align-items:center;justify-content:center;text-align:center;border-radius:11px;text-decoration:none;border:1px solid var(--line);background:#f6f9f8;font-weight:850;font-size:13px}.btn.dark{background:#17343e;color:#fff;border-color:#17343e}.stop-actions{grid-template-columns:repeat(3,1fr);margin-top:7px}.stop-actions a{font-size:11px;min-height:40px}
-.prep-step{border-left:4px solid #7da8a0;padding:2px 0 4px 12px;margin:14px 0}.prep-step h3{margin:0 0 7px;font-size:16px}.check{display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px dashed var(--line);font-size:14px;line-height:1.45}.check input{width:21px;height:21px;flex:0 0 auto;margin:0}
-.shop{border:1px solid var(--line);border-radius:15px;padding:12px;margin:9px 0}.shop h3{margin:0 0 4px}.shop .best{font-weight:800;color:#385963;font-size:13px}.shop p{font-size:13px;color:var(--muted);line-height:1.5}.shop small{color:#7b8b90}
-.pills{display:flex;gap:7px;flex-wrap:wrap}.pill{background:#f3f7f6;border:1px solid var(--line);padding:8px 9px;border-radius:999px;font-size:12px;font-weight:750}
-.source a{display:block;padding:10px 0;border-bottom:1px dashed var(--line);font-size:13px;color:#315b68}
-.desktop{display:none}.bottom{position:fixed;left:0;right:0;bottom:0;z-index:9999;display:grid;grid-template-columns:repeat(5,1fr);background:#fffffff2;backdrop-filter:blur(14px);border-top:1px solid var(--line);padding:7px 5px calc(7px + env(safe-area-inset-bottom))}
-.bottom button{border:0;background:transparent;min-height:50px;border-radius:11px;color:#687b81;font-size:10px;font-weight:850;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:2px}.bottom button span{font-size:20px}.bottom button.active{background:#edf4f3;color:#17343e}
-.sticky{position:sticky;bottom:calc(70px + env(safe-area-inset-bottom));z-index:800;padding:5px 0}.sticky a{box-shadow:0 8px 22px #17343e30}
-@media(min-width:850px){.app{padding:20px}.hero{margin:0 0 18px;border-radius:28px;padding:30px}.hero h1{font-size:54px}.desktop{display:block}.bottom{position:static;margin:16px 0;grid-template-columns:repeat(5,1fr);border:1px solid var(--line);border-radius:16px;padding:6px}.bottom button{font-size:13px;flex-direction:row}.bottom button span{font-size:16px}.grid{display:grid;grid-template-columns:1.35fr .85fr;gap:16px}.map{height:560px}.sticky{display:none}.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}.shops{display:grid;grid-template-columns:1fr 1fr;gap:10px}.shop{margin:0}}
-@media(max-width:390px){.hero h1{font-size:30px}.stop-actions,.actions{grid-template-columns:1fr}.map{min-height:330px}}
-</style></head><body><div class="app">
+<link rel="stylesheet" href="styles.css">
+<title>济州岛 9.24–9.27 · 手机旅行 App</title>
+</head><body>
+<div class="app">
 <header class="hero"><div class="kicker">JEJU · 2026.09.24—09.27</div><h1>济州岛 4天3晚<br>详细旅行手册</h1><p>已按你 09:30 / 07:00 与朋友 06:30 / 22:00 的不同航班重新排程；共同购物集中到 9/26 上午。</p><div class="chips"><span class="chip">🏨 Diamond Hotel · 保健路</span><span class="chip">🚕 东/南线优先包车</span><span class="chip">🛍 Polo / 包包 / 墨镜</span><span class="chip">📱 Naver / Google 导航</span></div></header>
 
 <nav class="bottom">
-<button data-sec="days" class="active"><span>🗺️</span>行程</button>
-<button data-sec="prep"><span>🛂</span>出境</button>
-<button data-sec="food"><span>🍴</span>吃饭</button>
-<button data-sec="shopping"><span>🛍️</span>购物</button>
-<button data-sec="sources"><span>ℹ️</span>资料</button>
+<button data-sec="home" class="active"><span>⌂</span>首页</button>
+<button data-sec="days"><span>🗓</span>行程</button>
+<button data-sec="prep"><span>✓</span>准备</button>
+<button data-sec="food"><span>🍜</span>吃饭</button>
+<button data-sec="shopping"><span>🛍</span>购物</button>
+<button data-sec="guide"><span>🧭</span>攻略</button>
 </nav>
 
-<section id="days" class="section active">
+
+<section id="home" class="section active">
+  <div class="card hero">
+    <div class="eyebrow">JEJU · 2026.09.24—09.27</div>
+    <h1>济州岛旅行 App</h1>
+    <p>两人错峰抵达 · 东/南/西线 · 共同购物 · 分流返程</p>
+    <button class="primary" id="quickToday">📍 进入今天行程</button> <button class="secondary" id="shareBtn">↗ 分享</button> <button class="secondary" id="installBtn" hidden>＋ 添加到主屏幕</button><div id="shareStatus" class="muted"></div>
+  </div>
+  <div class="card">
+    <h2>🗓 今天</h2>
+    <div id="todayCard"></div>
+  </div>
+  <div class="card"><h2>👥 两个人的航班</h2><div id="travelers"></div></div>
+<div class="card"><h2>🌦️ 实时天气</h2><div id="liveWeather"></div><div id="weatherForecast"></div><button class="secondary" id="refreshWeather">刷新天气</button><p class="muted">天气来自 Open-Meteo；海边、登山和游船是否适合出行，以现场官方通知为准。</p></div>
+<div class="card">
+    <h2>💰 旅行预算</h2>
+    <div id="budget"></div>
+  </div>
+  <div class="card">
+    <h2>📱 手机使用</h2>
+    <p id="installTip"></p>
+    <div class="tip">建议出发前把每天页面、酒店地址、导航链接都打开一次；Service Worker 会缓存 App 壳和行程数据，但在线地图/导航仍依赖网络。</div>
+  </div>
+</section>
+
+<section id="days" class="section">
 <div class="card" style="border-left:5px solid #5579A8">
   <h3 style="margin-bottom:8px">✈️ 你们的航班节奏</h3>
   <div class="two">
@@ -49,6 +64,12 @@ a{color:inherit}.app{max-width:1160px;margin:auto;padding:12px 12px calc(92px + 
 <div class="daystrip" id="daystrip"></div>
 <div class="grid"><div>
 <div class="card"><h2 id="daytitle"></h2><p class="muted" id="daysummary"></p><div id="map" class="map"></div><p class="muted" style="font-size:11px;margin-bottom:0">地图连接线表示游览顺序，不代表真实道路。点击 Marker 后可跳 Naver / Google。</p></div>
+
+<div class="card">
+  <h3>🧭 攻略融合 · 为什么这样排</h3>
+  <div id="strategy" class="tip"></div>
+  <div id="planB" class="weather" style="margin-top:8px"></div>
+</div>
 <div class="card"><h3>⏱ 详细时间线</h3><div class="timeline" id="timeline"></div></div>
 </div><aside>
 <div class="card"><h3>🚕 交通策略</h3><div class="tip" id="transport"></div><div class="weather" id="weather" style="margin-top:8px"></div></div>
@@ -74,6 +95,32 @@ a{color:inherit}.app{max-width:1160px;margin:auto;padding:12px 12px calc(92px + 
 <div class="card"><h2>购物计划：先买“目标商品”，再买伴手礼</h2><p class="muted">你们共同购物不放在 9/27。统一安排到 9/26 上午：Dream Tower → 新罗免税 →（乐天缺货/比价时才去）→ 中午直接开始西线。这样两个人能一起选 Polo、包包、墨镜。</p><div class="shops" id="shops"></div></div>
 <div class="card"><h2>济州特色伴手礼</h2><div class="pills" id="gifts"></div></div>
 <div class="card"><h2>退税 / 免税别搞混</h2><div class="tip"><b>普通 Tax Refund 店：</b>通常先正常付款，再即时退税或离境退税。韩国旅游官方资料显示，符合条件商品单笔满 ₩15,000 起可退税；即时退税还有单笔和总消费上限。</div><div class="tip" style="margin-top:8px"><b>市内 Duty Free（新罗/乐天）：</b>价格本身按免税体系购买，带护照和离境信息；很多商品要到济州机场出境后的提货区领取，所以最后一天必须给提货留时间。</div></div>
+</section>
+
+
+<section id="guide" class="section">
+  <div class="card">
+    <h2>🧭 小红书攻略融合版</h2>
+    <p class="muted">原攻略是“一个人全程公交”，你们是两人、住莲洞/保健路、且抵返航班错峰，因此这里采用“体验取精华、交通按你们实际情况重构”的方式。</p>
+    <div class="tip"><b>保留：</b>牛岛的海岛骑行思路、柱状节理、涯月海岸、M1971 夕阳海豚、保健路/机场附近海岸。</div>
+    <div class="tip" style="margin-top:8px"><b>不照搬：</b>全程公交、完整偶来 7 号线十几公里徒步、9/24 临时硬塞牛岛。你们只有 3 个完整游玩日，时间价值比省一点交通费更重要。</div>
+  </div>
+  <div class="card">
+    <h3>⭐ 三个“值得升级”的体验</h3>
+    <ol style="line-height:1.7;padding-left:22px">
+      <li><b>9/24 东线：</b>放弃牛岛，换取咸德 + 城山 + 涉地可支的完整体验，降低首日风险。</li>
+      <li><b>9/25 南线：</b>柱状节理保留；如果想要更特别，可以用 M1971 夕阳海豚游替换西归浦老城/天地渊。</li>
+      <li><b>9/26 西线：</b>购物结束后专注 O'Sulloc → 挟才 → 汉潭/涯月日落，不再加入额外主题馆。</li>
+    </ol>
+  </div>
+  <div class="card">
+    <h3>☔ 天气决策树</h3>
+    <div class="meals">
+      <div class="meal"><b>晴天</b> 西线优先 → 挟才 + 汉潭 + 日落；东线保留城山/涉地。</div>
+      <div class="meal"><b>阴天</b> 南线优先 → 柱状节理 + 西归浦；海边风景仍有层次。</div>
+      <div class="meal"><b>强风/大雨</b> 减少登顶和海岸暴露，增加 O'Sulloc、咖啡、市场；M1971 取消/改期。</div>
+    </div>
+  </div>
 </section>
 
 <section id="sources" class="section"><div class="card"><h2>官方 / 主要资料来源</h2><p class="muted">旅行前尤其是免签、e-Arrival Card、航班、天气和营业时间，请优先从这些链接重新确认。</p><div class="source" id="sourceList"></div></div></section>
@@ -110,4 +157,8 @@ function renderFood(){ $('#foodAll').innerHTML=DAYS.map((d,i)=>`<div class="card
 function renderShops(){$('#shops').innerHTML=SHOPS.map(s=>`<div class="shop"><h3>${s.name}</h3><div class="best">${s.best}</div><small>${s.hours}</small><p>${s.note}</p><div class="actions"><a class="btn" target="_blank" rel="noopener" href="${nav(s.kr)}">Naver Map</a><a class="btn" target="_blank" rel="noopener" href="${goog(s.kr)}">Google Maps</a></div></div>`).join('');$('#gifts').innerHTML=GIFTS.map(x=>`<span class="pill">${x}</span>`).join('')}
 $('#sourceList').innerHTML=SOURCES.map(s=>`<a target="_blank" rel="noopener" href="${s[1]}">↗ ${s[0]}</a>`).join('');
 renderPrep();renderFood();renderShops();renderDay();
-</script></body></html>
+</script>
+<script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="data/trip-data.js"></script>
+<script src="app.js"></script>
+</body></html>
