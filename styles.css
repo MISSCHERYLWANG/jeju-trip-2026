@@ -57,3 +57,25 @@ a{color:inherit}.app{max-width:1160px;margin:auto;padding:12px 12px calc(92px + 
 .shopcheck h3{margin:5px 0 8px}
 #shareStatus{margin-top:5px;min-height:18px}
 @media(max-width:600px){.forecast{grid-template-columns:50px 1fr 70px;row-gap:4px}.forecast span:nth-child(4),.forecast span:nth-child(5){grid-column:2/4}.primary,.secondary{margin-top:5px}}
+
+/* JEJU_V10_MOBILE */
+@media(max-width:640px){button,.btn,a{min-height:44px}.container,.content{padding-left:14px!important;padding-right:14px!important}.card{border-radius:18px!important}}
+
+/* JEJU_V10_1_MOBILE */
+html{overflow-x:hidden}
+body{overflow-x:hidden;-webkit-tap-highlight-color:transparent}
+button,a,.btn,input,select{touch-action:manipulation}
+.v101-quick{margin:16px auto;padding:14px;max-width:760px;border-radius:18px;background:rgba(15,23,42,.06)}
+.v101-title{font-weight:700;margin-bottom:10px}
+.v101-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.v101-actions button{min-height:46px;border:0;border-radius:12px;padding:10px 12px;font-weight:650}
+.is-checked{text-decoration:line-through;opacity:.65}
+@media(max-width:640px){
+  body{font-size:16px}
+  button,a,.btn{min-height:44px}
+  .v101-actions{grid-template-columns:1fr 1fr}
+  img,svg,canvas{max-width:100%;height:auto}
+}
+@supports(padding:max(0px)){
+  body{padding-bottom:max(12px,env(safe-area-inset-bottom))}
+}

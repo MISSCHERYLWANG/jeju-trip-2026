@@ -1,10 +1,10 @@
 {
-  "name": "济州岛旅行 2026",
-  "short_name": "济州旅行",
+  "name": "Jeju Trip 2026",
+  "short_name": "Jeju Trip",
   "start_url": "./",
   "display": "standalone",
-  "background_color": "#f5f8f7",
-  "theme_color": "#eef7f7",
+  "background_color": "#ffffff",
+  "theme_color": "#0f172a",
   "lang": "zh-CN",
-  "description": "9月24日至27日济州岛手机旅行手册"
+  "description": "济州岛 2026-09-24 至 09-27 双人旅行计划"
 }

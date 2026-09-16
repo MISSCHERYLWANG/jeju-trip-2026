@@ -25,6 +25,7 @@ Repository Settings → Pages → Build and deployment → Deploy from a branch 
 ## 修改行程
 
 主要内容都在 `data/trip-data.js`：
+
 - `days`: 每日路线、时间线、餐厅、购物、Plan B
 - `prep`: 出境/入境 Checklist
 - `shops`: 购物
@@ -39,7 +40,6 @@ GitHub Pages 上线后，手机浏览器打开一次即可缓存 App 壳和行�
 
 注意：完整在线地图和 Naver/Google 跳转仍需要网络；不要把离线缓存当成完整离线地图。
 
-
 ## v4 新增
 
 - 首页 Dashboard：自动识别旅行日期并进入当天行程
@@ -48,7 +48,6 @@ GitHub Pages 上线后，手机浏览器打开一次即可缓存 App 壳和行�
 - KRW 预算记录：交通 / 餐饮 / 门票体验 / 购物 / 其他
 - 攻略融合页与天气 Plan B
 - 每个地点继续支持 Naver / Google 一键导航
-
 
 ## v5 现场旅行升级
 
@@ -59,3 +58,12 @@ GitHub Pages 上线后，手机浏览器打开一次即可缓存 App 壳和行�
 - 首页分享按钮：优先调用手机原生分享，否则复制链接
 - Android 支持时显示“添加到主屏幕”
 - 继续保留本地行程打卡、预算、Naver / Google 导航
+
+## v10 现场执行版
+
+- 
+- 9/24 机场汇合、酒店寄存行李、南线
+- 9/25 东线牛岛环岛骑行 + 天气/海况 Plan B
+- 9/26 共同购物 + 西线 + 涯月日落
+- 9/27 张张07:00返程、慌慌22:00返程
+- 手机优先、外部地图跳转、当日行程分享

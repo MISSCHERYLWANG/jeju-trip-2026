@@ -1,7 +1,7 @@
 
 const DATA=window.TRIP_DATA, DAYS=DATA.days, PREP=DATA.prep, SHOPS=DATA.shops, GIFTS=DATA.gifts, SOURCES=DATA.sources;
-let di=Number(localStorage.getItem('jeju-day')||0), map=null, marks=[], line=null, deferredInstall=null;
-const STORE='jeju-v5', $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+let di=Math.min(3,Math.max(0,Number(localStorage.getItem('jeju-day')||0))), map=null, marks=[], line=null, deferredInstall=null;
+const STORE='jeju-v10', $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 
 function nav(q){return 'https://map.naver.com/p/search/'+encodeURIComponent(q)}
 function goog(q){return 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(q+' Jeju, South Korea')}
@@ -28,24 +28,24 @@ function ensureMap(){
 }
 function renderMap(){
   if(!ensureMap())return;marks.forEach(m=>map.removeLayer(m));marks=[];if(line)map.removeLayer(line);
-  const d=DAYS[di],coords={'Diamond Hotel':[33.4889189,126.4922938],'Hamdeok Beach':[33.54323,126.66986],'Seongsan Ilchulbong':[33.458111,126.941516],'Seopjikoji':[33.42404,126.93073],'Jusangjeolli Cliff':[33.23695,126.42496],'Seogwipo Old Town':[33.248,126.563],'Cheonjiyeon Waterfall':[33.24693,126.55453],'Seogwipo Maeil Olle Market':[33.24861,126.56431],'Jeju Dream Tower':[33.485279,126.481461],'Shilla Duty Free Jeju':[33.4867,126.4870],"O'Sulloc Tea Museum":[33.3059,126.2895],'Hyeopjae Beach':[33.39511,126.24028],'Handam Coastal Trail':[33.459229,126.310609],'Jeju Five-Day Market':[33.496927,126.475802],'Dongmun Market':[33.5116,126.5260],'Chilseong-ro':[33.5128,126.5250],'Yongduam Rock':[33.5161,126.5110]};
+  const d=DAYS[di],coords={'Diamond Hotel':[33.4889189,126.4922938],'Hamdeok Beach':[33.54323,126.66986],'Seongsan Ilchulbong':[33.458111,126.941516],'Seopjikoji':[33.42404,126.93073],'Jusangjeolli Cliff':[33.23695,126.42496],'Seogwipo Old Town':[33.248,126.563],'Cheonjiyeon Waterfall':[33.24693,126.55453],'Seogwipo Maeil Olle Market':[33.24861,126.56431],'Jeju Dream Tower':[33.485279,126.481461],'Shilla Duty Free Jeju':[33.4867,126.4870],"O'Sulloc Tea Museum":[33.3059,126.2895],'Hyeopjae Beach':[33.39511,126.24028],'Handam Coastal Trail':[33.459229,126.310609],'Jeju Five-Day Market':[33.496927,126.475802],'Dongmun Market':[33.5116,126.5260],'Chilseong-ro':[33.5128,126.5250],'Yongduam Rock':[33.5161,126.5110],'Seongsan Port':[33.4268,126.8947],'Udo':[33.5045,126.9533],'Seobinbaeksa':[33.5027,126.9557],'Hagosudong Beach':[33.5087,126.9614],'Geommeolle Beach':[33.4889,126.9584],'Udobong':[33.4936,126.9511]};
   const stops=(d.routeStops||[]).map(n=>[n,...(coords[n]||[])]).filter(x=>x.length===3);if(!stops.length)return;
   const ll=stops.map(x=>[x[1],x[2]]);line=L.polyline(ll,{color:d.color,weight:5,dashArray:'10 8'}).addTo(map);
   stops.forEach((s,i)=>{const ic=L.divIcon({className:'',html:`<div class="mapdot" style="background:${d.color}">${i+1}</div>`,iconSize:[32,32],iconAnchor:[16,16]});marks.push(L.marker([s[1],s[2]],{icon:ic}).addTo(map).bindPopup(`<b>${s[0]}</b><div class="stop-actions"><a target="_blank" rel="noopener" href="${nav(s[0])}">Naver</a><a target="_blank" rel="noopener" href="${goog(s[0])}">Google</a></div>`))});
   map.fitBounds(ll,{padding:[28,28],maxZoom:12});setTimeout(()=>map.invalidateSize(),50)
 }
 function renderDay(){
-  const d=DAYS[di];document.documentElement.style.setProperty('--accent',d.color);renderDayStrip();
+  const d=DAYS[di];d.color=d.color||['#E96B4B','#D99A36','#3F8D74','#5579A8'][di];document.documentElement.style.setProperty('--accent',d.color);renderDayStrip();
   $('#daytitle').textContent=`${d.date} ${d.dow} · ${d.line}｜${d.title}`;$('#daysummary').textContent=d.summary;$('#transport').textContent=d.transport;
   $('#weather').innerHTML='<b>天气：</b>'+d.weather;$('#strategy').textContent=d.strategy||'';$('#planB').innerHTML='<b>Plan B：</b>'+(d.planB||'根据天气灵活调整');
   $('#meals').innerHTML=`<div class="meal"><b>🥣 早餐</b>${d.meals.breakfast}</div><div class="meal"><b>🍱 午餐</b>${d.meals.lunch}</div><div class="meal"><b>🍖 晚餐</b>${d.meals.dinner}</div>`;
   const checks=saved('checks',{});$('#timeline').innerHTML=d.schedule.map((x,i)=>{const key=`d${di}-${i}`,done=!!checks[key];return `<div class="trow ${done?'done':''}"><div class="time">${x[0]}</div><div class="event"><div class="eventhead"><b>${x[1]}</b><label class="arrived"><input type="checkbox" data-arrive="${key}" ${done?'checked':''}> 已完成</label></div>${x[2]}<span class="tag">${x[3]}</span><div class="stop-actions"><a target="_blank" rel="noopener" href="${nav(x[1])}">Naver</a><a target="_blank" rel="noopener" href="${goog(x[1])}">Google</a></div></div></div>`}).join('');
   $$('[data-arrive]').forEach(c=>c.onchange=()=>{const s=saved('checks',{});s[c.dataset.arrive]=c.checked;put('checks',s);renderDay()});
   $('#restaurants').innerHTML=d.restaurants.map(r=>`<div class="rest"><b>${r.name}</b><small>${r.kr}</small><small>${r.why}</small><div class="stop-actions"><a target="_blank" rel="noopener" href="${nav(r.kr)}">Naver</a><a target="_blank" rel="noopener" href="${goog(r.kr)}">Google</a></div></div>`).join('');
-  $('#dayShopping').innerHTML=d.shopping.map(x=>`<span class="pill">${x}</span>`).join('');$('#routeBtn').href=route(d.routeStops||[]);
+  $('#dayShopping').innerHTML=d.shopping.map(x=>`<span class="pill">${x}</span>`).join('');$('#routeBtn').href=route(d.routeStops||[]);const sb=$('#shareDayBtn');if(sb)sb.onclick=()=>{const text=`济州岛 ${d.date}｜${d.title}\n${d.schedule.map(x=>x[0]+' '+x[1]).join('\n')}`;if(navigator.share)navigator.share({title:`Jeju Trip · ${d.date}`,text});else navigator.clipboard?.writeText(text);};
   renderMap();renderProgress()
 }
-function renderProgress(){const checks=saved('checks',{}),d=DAYS[di],total=d.schedule.length,done=d.schedule.filter((_,i)=>checks[`d${di}-${i}`]).length,pct=total?Math.round(done/total*100):0;$('#progress').innerHTML=`<div class="progressline"><div style="width:${pct}%"></div></div><span>${done}/${total} 项已完成 · ${pct}%</span>`}
+function renderProgress(){const el=$('#progress');if(!el)return;const checks=saved('checks',{}),d=DAYS[di],total=d.schedule.length,done=d.schedule.filter((_,i)=>checks[`d${di}-${i}`]).length,pct=total?Math.round(done/total*100):0;el.innerHTML=`<div class="progressline"><div style="width:${pct}%"></div></div><span>${done}/${total} 项已完成 · ${pct}%</span>`}
 
 function renderPrep(){
   let idx=0;const sp=saved('prep',{});$('#prepList').innerHTML=PREP.map(p=>`<div class="prep-step"><h3>${p.when}</h3>${p.items.map(it=>{const id=idx++;return `<label class="check"><input type="checkbox" data-check="${id}" ${sp[id]?'checked':''}><span>${it}</span></label>`}).join('')}</div>`).join('');
@@ -57,7 +57,7 @@ function renderFood(){$('#foodAll').innerHTML=DAYS.map((d,i)=>`<div class="card"
 function renderShops(){
   $('#shops').innerHTML=SHOPS.map(s=>`<div class="shop"><h3>${s.name}</h3><div class="best">${s.best}</div><small>${s.hours}</small><p>${s.note}</p><div class="actions"><a class="btn" target="_blank" rel="noopener" href="${nav(s.kr)}">Naver</a><a class="btn" target="_blank" rel="noopener" href="${goog(s.kr)}">Google</a></div></div>`).join('');
   $('#gifts').innerHTML=GIFTS.map(x=>`<span class="pill">${x}</span>`).join('');
-  const s=saved('shopping',{});$('#shoppingChecklist').innerHTML=(DATA.shoppingChecklist||[]).map((c,ci)=>`<div class="shopcheck"><h3>${c.category}</h3>${c.items.map((it,ii)=>{const k=`${ci}-${ii}`;return `<label class="check"><input type="checkbox" data-shop="${k}" ${s[k]?'checked':''}><span>${it}</span></label>`}).join('')}</div>`).join('');
+  const s=saved('shopping',{});const checklist=$('#shoppingChecklist');if(!checklist){return;} checklist.innerHTML=(DATA.shoppingChecklist||[]).map((c,ci)=>`<div class="shopcheck"><h3>${c.category}</h3>${c.items.map((it,ii)=>{const k=`${ci}-${ii}`;return `<label class="check"><input type="checkbox" data-shop="${k}" ${s[k]?'checked':''}><span>${it}</span></label>`}).join('')}</div>`).join('');
   $$('[data-shop]').forEach(c=>c.onchange=()=>{const x=saved('shopping',{});x[c.dataset.shop]=c.checked;put('shopping',x)})
 }
 function renderToday(){
